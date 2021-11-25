@@ -1,16 +1,27 @@
 from .__node import Node
 
 class Linked_list():
-
+    """
+    Linked list
+    """
     def __init__(self):
+        """
+        Initialize the Linked list with heah = None
+        so that is clear
+        """
         self.__head = None
         self.__size = 0
 
     def __len__(self):
+        """
+        return the list len
+        """
         return self.__size
 
     def append(self, elemento):
-
+        """
+        add a new element on list
+        """
         pointer = self.__head
         
         if pointer != None:
@@ -27,6 +38,10 @@ class Linked_list():
         self.__size += 1
 
     def print_all(self):
+
+        """
+        Show the elements
+        """
 
         if (self.__size > 0):
 
@@ -45,7 +60,9 @@ class Linked_list():
 
 
     def get_index(self, index:int):
-        
+        """
+        find a element
+        """
         if (self.__size > 0):
 
             if index <= self.__size - 1:

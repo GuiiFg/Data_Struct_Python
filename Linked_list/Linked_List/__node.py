@@ -1,6 +1,8 @@
 
 class Node:
-
+    """
+    Node with the used properties
+    """
     def __init__(self, number):
 
         self.__value = number
