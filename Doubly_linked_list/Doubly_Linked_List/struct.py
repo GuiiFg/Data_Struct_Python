@@ -12,29 +12,16 @@ class Doubly_linked_list():
         self.__models = []
         self.__price = 0
 
-    @property
-    def size (self):
+    def __len__ (self):
         return self.__size
-
-    @size.setter
-    def size (self, value):
-        self.__size = value
 
     @property
     def models (self):
         return self.__models
 
-    @models.setter
-    def models (self, value):
-        self.__models = value
-
     @property
     def price (self):
         return self.__price
-
-    @price.setter
-    def price (self, value):
-        self.__price = value
 
 
     def insert_element(self, element:Car):

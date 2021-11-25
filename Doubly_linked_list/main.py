@@ -20,3 +20,6 @@ for car in cars_list:
 
 dl_list.print_front_to_back()
 dl_list.print_back_to_front()
+
+dl_list.price
+dl_list.models
