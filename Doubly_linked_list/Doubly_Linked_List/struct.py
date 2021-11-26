@@ -43,7 +43,9 @@ class Doubly_linked_list():
 
         self.__size += 1
         self.__price += element.price
-        self.__models.append(element.model)
+
+        if element.model not in self.__models:
+            self.__models.append(element.model)
 
 
     def print_front_to_back(self):
@@ -85,3 +87,37 @@ class Doubly_linked_list():
 
         else:
             print("Dont have nothing here!")
+
+    def delete_by_licence_plate(self, licence_plate:str):
+        
+        if self.__size > 0:
+            
+            pointer = self.__head
+
+            counter = 0
+
+            while pointer:
+
+                if pointer.licence_plate == licence_plate:
+                    
+                    prev = pointer.prev
+                    next = pointer.next
+
+                    prev.next = next
+                    next.prev = prev
+
+                    self.__size -= 1
+
+                    break
+
+                if counter > self.__size:
+                    print("Licence plate not found")
+                    break
+
+                pointer = pointer.next
+                counter += 1
+
+        else:
+            print("Dont have nothing here!")
+
+    

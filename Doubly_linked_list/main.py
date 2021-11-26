@@ -23,3 +23,7 @@ dl_list.print_back_to_front()
 
 dl_list.price
 dl_list.models
+
+dl_list.delete_by_licence_plate("FERR4R1")
+
+dl_list.print_front_to_back()

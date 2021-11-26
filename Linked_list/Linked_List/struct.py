@@ -115,3 +115,36 @@ class Linked_list():
             
         else:
             print("Dont have nothing here!")
+
+    def delete_by_index(self, index):
+        """
+        delete a element by index
+        """
+        if (self.__size > 0):
+
+            if index <= self.__size - 1:
+
+                pointer = self.__head
+                prev = pointer
+                counter = 0
+
+                while True:
+                    
+                    if index == counter:
+                        
+                        prev.next = pointer.next
+
+                        self.__size -= 1
+
+                        break
+
+                    counter += 1
+
+                    prev = pointer
+                    pointer = pointer.next
+
+            else:
+                print("Index out of range!")
+            
+        else:
+            print("Dont have nothing here!")
