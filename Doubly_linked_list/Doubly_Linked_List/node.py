@@ -3,7 +3,7 @@
 class Car():
 
     def __init__(self, model, licence_plate, price, color, km):
-        
+
         self.__next = None
         self.__prev = None
 
@@ -14,57 +14,57 @@ class Car():
         self.__km = km
 
     @property
-    def next (self):
+    def next(self):
         return self.__next
 
     @property
-    def prev (self):
+    def prev(self):
         return self.__prev
 
     @property
-    def model (self):
+    def model(self):
         return self.__model
 
     @property
-    def licence_plate (self):
+    def licence_plate(self):
         return self.__licence_plate
 
     @property
-    def price (self):
+    def price(self):
         return self.__price
 
     @property
-    def color (self):
+    def color(self):
         return self.__color
 
     @property
-    def km (self):
+    def km(self):
         return self.__km
 
     @model.setter
-    def model (self, value):
+    def model(self, value):
         self.__model = value
 
     @licence_plate.setter
-    def licence_plate (self, value):
+    def licence_plate(self, value):
         self.__licence_plate = value
 
     @price.setter
-    def price (self, value):
+    def price(self, value):
         self.__price = value
 
     @color.setter
-    def color (self, value):
+    def color(self, value):
         self.__color = value
 
     @km.setter
-    def km (self, value):
+    def km(self, value):
         self.__km = value
 
     @next.setter
-    def next (self, value):
+    def next(self, value):
         self.__next = value
 
     @prev.setter
-    def prev (self, value):
+    def prev(self, value):
         self.__prev = value
