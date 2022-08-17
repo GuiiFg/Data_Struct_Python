@@ -2,7 +2,15 @@ class Node():
 
     def __init__(self, value, left = None, right = None, level = None, balance = None):
 
-        self.__value = value
+        """
+            value    # valor para posicionamento na arvore\n
+            left     # elemento que está a sua esquerda\n
+            right    # elemento que está a sua direita\n
+            level    # nivel que o nó esta situado na arvore\n
+            balance  # equilibrio atual do nó
+        """
+
+        self.__value = value 
         self.__left = left
         self.__right = right
         self.__level = level

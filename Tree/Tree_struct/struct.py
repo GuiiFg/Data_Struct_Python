@@ -1,12 +1,13 @@
+from .text_color import PaintText
 from .node import Node
 
-class Three():
+class Tree():
 
     def __init__(self):
 
-        self.__root: Node = None
-        self.__size = 0
-        self.__deep = 0
+        self.__root: Node = None # nó raiz da arvore
+        self.__size = 0 # quantidade de nós na arvore
+        self.__deep = 0 # profundidade da arvore
 
     @property
     def size(self):
@@ -17,16 +18,24 @@ class Three():
         return self.__deep
 
     def InsertElement(self, node : Node,  root : Node = None, updateBalance = True):
-        
+        """
+            Insere um elemento na arvore.\n
+        """
+
+        # caso não passe uma raiz, sera utilizado a raiz da arvore
         if root == None:
             root = self.__root
 
+        # se a arvore não tem raiz, o nó será a nova raiz
         if root == None:
             self.__root = node
             self.__size += 1
         
+        # Caso a arvore já possua elementos, o nó seria direcionado para esquerda(se menor) ou para direita(se maior)
+
         elif root.value > node.value:
 
+            # caso não tenha elemento na esquerda, ele insere, caso tenha, usa-se recursividade com a raiz da sub-arvore para inserir o elemento
             if root.left == None:
                 root.left = node
                 self.__size += 1
@@ -41,9 +50,11 @@ class Three():
             else:
                 self.InsertElement(node, root.right, False)
 
+        # se o valor do nó já existir na arvore, ele não será inserido
         elif root.value == node.value:
             print("Already inserted!")
 
+        # atualiza o valor de equilibrio de cada no depois de um insert
         if updateBalance:
             print("updating balance...")
             self.UpdateBalance()
@@ -69,7 +80,7 @@ class Three():
         if root.right != None:
             self.PrintAllElements(root.right, count + 1)
 
-    def UpdateBalance(self, root = None):
+    def UpdateBalance(self, root : Node = None):
         if root == None:
             root = self.__root
 
