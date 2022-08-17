@@ -1,4 +1,3 @@
-from .text_color import PaintText
 from .node import Node
 
 class Tree():
@@ -8,6 +7,7 @@ class Tree():
         self.__root: Node = None # nó raiz da arvore
         self.__size = 0 # quantidade de nós na arvore
         self.__deep = 0 # profundidade da arvore
+        self.__unbalanceNodes = []
 
     @property
     def size(self):
@@ -16,6 +16,10 @@ class Tree():
     @property
     def deep(self):
         return self.__deep
+
+    @property
+    def unbalanceNodes(self) -> list:
+        return self.__unbalanceNodes
 
     def InsertElement(self, node : Node,  root : Node = None, updateBalance = True):
         """
@@ -57,10 +61,9 @@ class Tree():
         # atualiza o valor de equilibrio de cada no depois de um insert
         if updateBalance:
             print("updating balance...")
+            self.__unbalanceNodes.clear()
             self.UpdateBalance()
             print("updated balance!")
-            
-
 
     def PrintAllElements(self, root = None, count = 0):
         if root == None:
@@ -109,10 +112,63 @@ class Tree():
 
         root.balance = rightBalance - leftBalance
 
+        if root.balance > 1 or root.balance < -1:
+            self.__unbalanceNodes.append([root, root.balance])
+
         if root.left != None:
             self.UpdateBalance(root.left)
         if root.right != None:
             self.UpdateBalance(root.right)
+
+    def Equalizer(self):
+
+        toBalance = None
+
+        for x in self.__unbalanceNodes:
+            if toBalance == None:
+                toBalance = x
+            else:
+                toBalance = x if abs(toBalance[1]) > abs(x[1]) else toBalance
+
+        if toBalance[1] == -2:
+            self.RightRotation(toBalance[0])
+
+
+    def RightRotation(self, nodeUnbalance : Node):
+
+        nodeDad : Node = self.FindDad(nodeUnbalance)
+        nodeSon : Node = nodeUnbalance.left
+
+        nodeDad.left = nodeUnbalance.left
+        nodeUnbalance.left = nodeSon.right
+        nodeSon.right = nodeUnbalance
+
+        self.UpdateBalance()
+
+    def FindDad(self, nodeSon : Node, root : Node = None):
+
+        root = self.__root if root == None else root
+
+        if self.__root.value == nodeSon.value:
+            return None
+
+        if root.value < nodeSon.value:
+            aux = root.right
+            if aux.value == nodeSon.value:
+                return root
+            else:
+                return self.FindDad(nodeSon, aux)
+
+        if root.value > nodeSon.value:
+            aux = root.left
+            if aux.value == nodeSon.value:
+                return root
+            else:
+                return self.FindDad(nodeSon, aux) 
+
+
+        
+        
 
         
 

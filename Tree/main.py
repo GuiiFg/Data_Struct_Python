@@ -22,3 +22,17 @@ arvore.InsertElement(Node(2))
 #3                                    .
 
 arvore.PrintAllElements()
+arvore.unbalanceNodes
+arvore.Equalizer()
+
+#0               20                    .
+#0            /      \                  .
+#1          5        30                .
+#1         /  \      /  \              .
+#2        2   10    25   32           .
+#2                         \          .
+#3                          35        .
+#3                                    .
+
+arvore.PrintAllElements()
+
