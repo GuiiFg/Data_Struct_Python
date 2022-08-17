@@ -1,10 +1,13 @@
-class PaintText:
-    HEADER = '\033[95m'
-    OKBLUE = '\033[94m'
-    OKCYAN = '\033[96m'
-    OKGREEN = '\033[92m'
-    WARNING = '\033[93m'
-    FAIL = '\033[91m'
-    ENDC = '\033[0m'
-    BOLD = '\033[1m'
-    UNDERLINE = '\033[4m'
+from turtle import color
+
+
+class PaintText():
+    
+    color = {
+        "red" : '\033[1;31m',
+        "white" : '\033[0;37m'
+    }
+
+    def ChangeTextConsoleColor(toColor : str, color = color):
+
+        print(color[f"{toColor}"])

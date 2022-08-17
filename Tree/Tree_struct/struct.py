@@ -70,10 +70,18 @@ class Tree():
         right = root.right.value if root.right != None else "none"
 
         unbalance = ""
+        unbalanceBool = False
         if root.balance != None:
-            unbalance = " | WARING" if abs(root.balance) > 1 else ""
+            if abs(root.balance) > 1:
+                unbalance = " | WARING" 
+                unbalanceBool = True
 
-        print("Layer: " + str(count) + f" - Balance: {root.balance} - Values: {left} <- {root.value} -> {right}" + unbalance)
+        textPrint = "Layer: " + str(count) + f" - Balance: {root.balance} - Values: {left} <- {root.value} -> {right}" + unbalance
+
+        if unbalanceBool:
+            textPrint = '\033[1;31m' + textPrint + '\033[0;37m'
+
+        print(textPrint)
 
         if root.left != None:
             self.PrintAllElements(root.left, count + 1)
