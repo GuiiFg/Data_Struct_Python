@@ -1,4 +1,5 @@
 from platform import node
+from unittest import result
 from xmlrpc.client import boolean
 from .node import Node
 
@@ -43,6 +44,7 @@ class Tree():
 
             # caso não tenha elemento na esquerda, ele insere, caso tenha, usa-se recursividade com a raiz da sub-arvore para inserir o elemento
             if root.left == None:
+                node.layer = root.layer + 1
                 root.left = node
                 self.__size += 1
             else:
@@ -51,6 +53,7 @@ class Tree():
         elif root.value < node.value:
 
             if root.right == None:
+                node.layer = root.layer + 1
                 root.right = node
                 self.__size += 1
             else:
@@ -93,39 +96,40 @@ class Tree():
         if root.right != None:
             self.PrintAllElements(root.right, count + 1)
 
-    def UpdateBalance(self, root : Node = None, boolUpdatelayer : bool = True):
+    def UpdateBalance(self, root : Node = None):
+
         if root == None:
             root = self.__root
 
-        aux = root
+        print(f"calculando de: v{root.value}/l{root.layer}")
 
-        leftBalance = 0
-        rightBalance = 0
+        root.balance = self.CalculateBalance(root.left) - self.CalculateBalance(root.right)
 
-        while aux.left != None:
-            aux = aux.left
-            leftBalance += 1
-
-        aux = root
-
-        while aux.right != None:
-            aux = aux.right
-            rightBalance += 1
-
-        root.balance = leftBalance - rightBalance
-
-        if root.balance > 1 or root.balance < -1:
-            self.__unbalanceNodes.append([root, root.balance])
+        print('\033[1;31m' + f"result: {root.balance} = {self.CalculateBalance(root.left)} - {self.CalculateBalance(root.right)}" + '\033[0;37m')
 
         if root.left != None:
-            self.UpdateBalance(root.left, False)
+            self.UpdateBalance(root.left)
         if root.right != None:
-            self.UpdateBalance(root.right, False)
+            self.UpdateBalance(root.right)
 
-        if boolUpdatelayer:
-            print("Updating layers...")
-            self.UpdateLayer()
-            print("layers ok!")
+
+
+    def CalculateBalance(self, root : Node, count = 0):
+        
+        if root == None:
+            return 0
+
+        numLeft = count
+        numRight = 0
+
+        if root.left != None:
+            numLeft = self.CalculateBalance(root.left, count + 1)
+        if root.right != None:
+            numRight = self.CalculateBalance(root.right, count + 1)
+
+        return numLeft + numRight
+
+
 
 
     def UpdateLayer(self, root = None, count = 0):

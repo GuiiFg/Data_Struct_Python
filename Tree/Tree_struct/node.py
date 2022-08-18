@@ -1,6 +1,6 @@
 class Node():
 
-    def __init__(self, value, left = None, right = None, layer = None, balance = None):
+    def __init__(self, value, left = None, right = None, layer = 0, balance = None):
 
         """
             value    # valor para posicionamento na arvore\n
