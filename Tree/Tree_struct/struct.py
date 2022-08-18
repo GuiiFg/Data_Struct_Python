@@ -101,8 +101,6 @@ class Tree():
         if root == None:
             root = self.__root
 
-        print(f"calculando de: v{root.value}/l{root.layer}")
-
         balanceLeft = self.CalculateBalance(root.left)
         balanceRight = self.CalculateBalance(root.right)
 
@@ -110,6 +108,9 @@ class Tree():
         balanceRight = balanceRight - root.layer if balanceRight != 0 else balanceRight
 
         root.balance = balanceLeft - balanceRight
+
+        if 1 < root.balance or root.balance < -1:
+            self.__unbalanceNodes.append([root, root.balance])
         
         if root.left != None:
             self.UpdateBalance(root.left)
@@ -131,9 +132,6 @@ class Tree():
         if root.right != None:
             other = self.CalculateBalance(root.right, highLayer)
             highLayer = other if other > highLayer else highLayer
-
-
-        print(f"{root.value} : {highLayer}")
 
         return highLayer
 
