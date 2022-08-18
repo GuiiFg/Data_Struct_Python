@@ -103,10 +103,14 @@ class Tree():
 
         print(f"calculando de: v{root.value}/l{root.layer}")
 
-        root.balance = self.CalculateBalance(root.left) - self.CalculateBalance(root.right)
+        balanceLeft = self.CalculateBalance(root.left)
+        balanceRight = self.CalculateBalance(root.right)
 
-        print('\033[1;31m' + f"result: {root.balance} = {self.CalculateBalance(root.left)} - {self.CalculateBalance(root.right)}" + '\033[0;37m')
+        balanceLeft = balanceLeft - root.layer if balanceLeft != 0 else balanceLeft
+        balanceRight = balanceRight - root.layer if balanceRight != 0 else balanceRight
 
+        root.balance = balanceLeft - balanceRight
+        
         if root.left != None:
             self.UpdateBalance(root.left)
         if root.right != None:
@@ -114,20 +118,24 @@ class Tree():
 
 
 
-    def CalculateBalance(self, root : Node, count = 0):
+    def CalculateBalance(self, root : Node, highLayer = 0):
         
         if root == None:
             return 0
 
-        numLeft = count
-        numRight = 0
+        highLayer = root.layer if root.layer > highLayer else highLayer
 
         if root.left != None:
-            numLeft = self.CalculateBalance(root.left, count + 1)
+            other = self.CalculateBalance(root.left, highLayer)
+            highLayer = other if other > highLayer else highLayer
         if root.right != None:
-            numRight = self.CalculateBalance(root.right, count + 1)
+            other = self.CalculateBalance(root.right, highLayer)
+            highLayer = other if other > highLayer else highLayer
 
-        return numLeft + numRight
+
+        print(f"{root.value} : {highLayer}")
+
+        return highLayer
 
 
 
