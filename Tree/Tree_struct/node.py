@@ -1,19 +1,19 @@
 class Node():
 
-    def __init__(self, value, left = None, right = None, level = None, balance = None):
+    def __init__(self, value, left = None, right = None, layer = None, balance = None):
 
         """
             value    # valor para posicionamento na arvore\n
             left     # elemento que está a sua esquerda\n
             right    # elemento que está a sua direita\n
-            level    # nivel que o nó esta situado na arvore\n
+            layer    # nivel que o nó esta situado na arvore\n
             balance  # equilibrio atual do nó
         """
 
         self.__value = value 
         self.__left = left
         self.__right = right
-        self.__level = level
+        self.__layer = layer
         self.__balance = balance
 
     @property
@@ -41,12 +41,12 @@ class Node():
         self.__right = value
 
     @property
-    def level(self):
-        return self.__level
+    def layer(self):
+        return self.__layer
 
-    @level.setter
-    def level(self, value):
-        self.__level = value
+    @layer.setter
+    def layer(self, value):
+        self.__layer = value
 
     @property
     def balance(self):

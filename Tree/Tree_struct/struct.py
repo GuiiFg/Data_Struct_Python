@@ -1,3 +1,5 @@
+from platform import node
+from xmlrpc.client import boolean
 from .node import Node
 
 class Tree():
@@ -91,7 +93,7 @@ class Tree():
         if root.right != None:
             self.PrintAllElements(root.right, count + 1)
 
-    def UpdateBalance(self, root : Node = None):
+    def UpdateBalance(self, root : Node = None, boolUpdatelayer : bool = True):
         if root == None:
             root = self.__root
 
@@ -110,38 +112,78 @@ class Tree():
             aux = aux.right
             rightBalance += 1
 
-        root.balance = rightBalance - leftBalance
+        root.balance = leftBalance - rightBalance
 
         if root.balance > 1 or root.balance < -1:
             self.__unbalanceNodes.append([root, root.balance])
 
         if root.left != None:
-            self.UpdateBalance(root.left)
+            self.UpdateBalance(root.left, False)
         if root.right != None:
-            self.UpdateBalance(root.right)
+            self.UpdateBalance(root.right, False)
+
+        if boolUpdatelayer:
+            print("Updating layers...")
+            self.UpdateLayer()
+            print("layers ok!")
+
+
+    def UpdateLayer(self, root = None, count = 0):
+
+        root = self.__root if root == None else root
+
+        root.layer = count
+
+        if root.left != None:
+            self.UpdateLayer(root.left, count + 1)
+        if root.right != None:
+            self.UpdateLayer(root.right, count + 1)
 
     def Equalizer(self):
 
         toBalance = None
 
+        # seleciona o nó mais desbalanceado para começar o balanceamento
         for x in self.__unbalanceNodes:
             if toBalance == None:
                 toBalance = x
             else:
                 toBalance = x if abs(toBalance[1]) > abs(x[1]) else toBalance
 
-        if toBalance[1] == -2:
-            self.RightRotation(toBalance[0])
+        # ler __info.md para detalhes do balanceamento
+
+        # decide qual rotacao sera usada de acordo com o desequilibrio
+        if toBalance[1] == 2:
+            self.RotationLL(toBalance[0])
+        elif toBalance[1] == -2:
+            #self.RotationRR(toBalance[0])
+            pass
 
 
-    def RightRotation(self, nodeUnbalance : Node):
+    def RotationLL(self, nodeUnbalance : Node):
 
-        nodeDad : Node = self.FindDad(nodeUnbalance)
-        nodeSon : Node = nodeUnbalance.left
+        # Rotacao a direita peso e (left, left)
 
-        nodeDad.left = nodeUnbalance.left
-        nodeUnbalance.left = nodeSon.right
-        nodeSon.right = nodeUnbalance
+        nodeDad = None
+        direction = None
+
+        if nodeUnbalance != self.__root:
+            #direction é a direção True(right) e False(left)
+            nodeDad, direction = self.FindDad(nodeUnbalance)
+
+        x = nodeUnbalance
+        y = nodeUnbalance.left
+        
+        x.left = y.right
+        y.right = x
+
+        if nodeDad == None:
+            self.__root = y
+        else:
+            if direction:
+                nodeDad.right = y
+            else:
+                nodeDad.left = y
 
         self.UpdateBalance()
 
@@ -149,30 +191,18 @@ class Tree():
 
         root = self.__root if root == None else root
 
-        if self.__root.value == nodeSon.value:
-            return None
-
         if root.value < nodeSon.value:
             aux = root.right
             if aux.value == nodeSon.value:
-                return root
+                return (root, True)
             else:
                 return self.FindDad(nodeSon, aux)
 
         if root.value > nodeSon.value:
             aux = root.left
             if aux.value == nodeSon.value:
-                return root
+                return (root, False)
             else:
                 return self.FindDad(nodeSon, aux) 
 
 
-        
-        
-
-        
-
-
-        
-
-            

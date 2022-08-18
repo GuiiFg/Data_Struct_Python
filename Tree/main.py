@@ -23,6 +23,7 @@ arvore.InsertElement(Node(2))
 
 arvore.PrintAllElements()
 arvore.unbalanceNodes
+arvore.unbalanceNodes[0][0].layer
 arvore.Equalizer()
 
 #0               20                    .
